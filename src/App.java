@@ -201,32 +201,48 @@ public class App {
            e.printStackTrace();
        }
     }
-          finally{
-           // Release JDBC resources in reverse order
-           try {
-               if (rs != null) {
-                   rs.close();
-               }
-           } catch (SQLException se2) {
-           }
-           try {
-               if (stmt != null) {
-                   stmt.close();
-               }
-           } catch (SQLException se2) {
-           }
-           try {
-               if (con != null) {
-                   con.close();
-               }
+//         finally{
+//            // Release JDBC resources in reverse order
+//            try {
+//                if (rs != null) {
+//                    rs.close();
+//                }
+//            } catch (SQLException se2) {
+//            }
+//            try {
+//                if (stmt != null) {
+//                    stmt.close();
+//                }
+//            } catch (SQLException se2) {
+//            }
+//            try {
+//                if (con != null) {
+//                    con.close();
+//                }
+//            } catch (SQLException se) {
+//                se.printStackTrace();
+//            }catch (Exception e) {
+//             System.out.println(e);
+//         }
+//        }
+//    }
 
 
-        
-           } catch (SQLException se) {
-               se.printStackTrace();
-           }catch (Exception e) {
-            System.out.println(e);
+finally {
+    // Release JDBC resources in reverse order
+    
+    try {
+        if (rs != null) {
+            rs.close();
         }
-       }
-   }
-
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (con != null) {
+            con.close();
+        }
+    } catch (SQLException se) {
+        se.printStackTrace();
+    }
+}
+}
