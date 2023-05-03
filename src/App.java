@@ -90,143 +90,131 @@ public class App {
         System.out.println("\nPlease enter your desired username:");
         username = input.nextLine();
 
-        try {
-            String query = "SELECT * FROM users WHERE username=?";
-            ps = con.prepareStatement(query);
-            ps.setString(1, username);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                System.out.println("\nUsername already exists, please choose another.");
-            } else {
-                System.out.println("Please enter your desired password:");
-                password = input.nextLine();
-
-                String insertQuery = "INSERT INTO users(username, password) VALUES(?, ?)";
-                ps = con.prepareStatement(insertQuery);
+                 try {
+                    String query = "SELECT * FROM users WHERE username=?";
+                ps = con.prepareStatement(query);
                 ps.setString(1, username);
-                ps.setString(2, password);
-                ps.executeUpdate();
+                rs = ps.executeQuery();
 
-                System.out.println("\nUser created successfully!");
-            }
-        } finally{
+                if (rs.next()) {
+                    System.out.println("\nUsername already exists, please choose another.");
+                } else {
+                    System.out.println("Please enter your desired password:");
+                    password = input.nextLine();
 
-        }
-           // Select a quiz category
-           System.out.println("Please select a quiz category:");
-           stmt = con.createStatement();
-           rs = stmt.executeQuery("SELECT * FROM categories");
-           while (rs.next()) {
-               System.out.println(rs.getInt("cat_id") + ". " + rs.getString("cat_name"));
-           }
-           int categoryId = Integer.parseInt(System.console().readLine());
+                    String insertQuery = "INSERT INTO users(username, password) VALUES(?, ?)";
+                    ps = con.prepareStatement(insertQuery);
+                    ps.setString(1, username);
+                    ps.setString(2, password);
+                    ps.executeUpdate();
 
-           // Select a quiz
-           System.out.println("Please select a quiz:");
-           stmt = con.createStatement();
-           rs = stmt.executeQuery("SELECT * FROM quizzes WHERE cat_id=" + categoryId);
-           while (rs.next()) {
-               System.out.println(rs.getInt("quiz_id") + ". " + rs.getString("quiz_name"));
-           }
-           int quizId = Integer.parseInt(System.console().readLine());
+                    System.out.println("\nUser created successfully!");
+                }
+                } catch (Exception e){
+                System.out.println(e);
+                }
 
-           // Answer questions
-           int score = 0;
-           stmt = con.createStatement();
-           rs = stmt.executeQuery("SELECT * FROM questions WHERE quiz_id=" + quizId);
-           while (rs.next()) {
-               // Display the current question and possible answers
-               int questionId = rs.getInt("table_id");
-               String questionText = rs.getString("question");
-               System.out.println(questionText);
-               stmt = con.createStatement();
-               ResultSet answers = stmt.executeQuery("SELECT * FROM answers WHERE table_id=" + questionId);
-               while (answers.next()) {
-                   int answerId = answers.getInt("ans_id");
-                   String answerText = answers.getString("answers");
-                   System.out.println(answerId + ". " + answerText);
-               }
-   
-               // Prompt the user to select an answer
-               int attempts = 0;
-               boolean answered = false;
-               while (!answered && attempts < 3) {
-                   System.out.print("Enter your answer: ");
-                   int answerChoice = Integer.parseInt(System.console().readLine());
-   
-                   // Check if the answer is correct
-                   stmt = con.createStatement();
-                   rs = stmt.executeQuery("SELECT * FROM answers WHERE ans_id=" + answerChoice + " AND correct=true");
-                   if (rs.next()) {
-                       System.out.println("Correct!");
-                       score++;
-                       answered = true;
-                   } else {
-                       System.out.println("Incorrect. Please try again.");
-                       attempts++;
-                   }
-               }
-           }
-   
-           // Display the final score and prompt the user to retry or return to the main menu
-           System.out.println("Quiz complete! Your score is: " + score);
-           System.out.println("Please select an option:");
-           System.out.println("1. Retry quiz");
-           System.out.println("2. Main menu");
-   
-           int choice = Integer.parseInt(System.console().readLine());
-           switch (choice) {
-               case 1:
-                   // Restart the quiz
-                   break;
-               case 2:
-                   // Return to the main menu
-                   break;
-               default:
-                   System.out.println("Invalid choice. Returning to main menu.");
-                   break;
-           }
-   
-           // Close the database resources
-           try{
-           rs.close();
-           stmt.close();
-           con.close();
-         }catch (SQLException se) {
-           // Handle JDBC errors
-           se.printStackTrace();
-       } catch (Exception e) {
-           // Handle other errors
-           e.printStackTrace();
-       }
-    }
-          finally{
-           // Release JDBC resources in reverse order
-           try {
-               if (rs != null) {
-                   rs.close();
-               }
-           } catch (SQLException se2) {
-           }
-           try {
-               if (stmt != null) {
-                   stmt.close();
-               }
-           } catch (SQLException se2) {
-           }
-           try {
-               if (con != null) {
-                   con.close();
-               }
+            
+                // Select a quiz category
+                System.out.println("Please select a quiz category:");
+                stmt = con.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM categories");
+                while (rs.next()) {
+                    System.out.println(rs.getInt("cat_id") + ". " + rs.getString("cat_name"));
+                }
+                int categoryId = Integer.parseInt(System.console().readLine());
+
+                // Select a quiz
+                System.out.println("Please select a quiz:");
+                stmt = con.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM quizzes WHERE cat_id=" + categoryId);
+                while (rs.next()) {
+                    System.out.println(rs.getInt("quiz_id") + ". " + rs.getString("quiz_name"));
+                }
+                int quizId = Integer.parseInt(System.console().readLine());
+
+                // Answer questions
+                int score = 0;
+                stmt = con.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM questions WHERE quiz_id=" + quizId);
+                while (rs.next()) {
+                    // Display the current question and possible answers
+                    int questionId = rs.getInt("table_id");
+                    String questionText = rs.getString("question");
+                    System.out.println(questionText);
+                    stmt = con.createStatement();
+                    ResultSet answers = stmt.executeQuery("SELECT * FROM answers WHERE table_id=" + questionId);
+                    while (answers.next()) {
+                        int answerId = answers.getInt("ans_id");
+                        String answerText = answers.getString("answers");
+                        System.out.println(answerId + ". " + answerText);
+                    }
+
+                    // Prompt the user to select an answer
+                    int attempts = 0;
+                    boolean answered = false;
+                    while (!answered && attempts < 3) {
+                        System.out.print("Enter your answer: ");
+                        int answerChoice = Integer.parseInt(System.console().readLine());
+
+                        // Check if the answer is correct
+                        stmt = con.createStatement();
+                        rs = stmt.executeQuery("SELECT * FROM answers WHERE ans_id=" + answerChoice + " AND correct=true");
+                        if (rs.next()) {
+                            System.out.println("Correct!");
+                            score++;
+                            answered = true;
+                        } else {
+                            System.out.println("Incorrect. Please try again.");
+                            attempts++;
+                        }
+                    }
+                }
+
+                // Display the final score and prompt the user to retry or return to the main menu
+                System.out.println("Quiz complete! Your score is: " + score);
+                System.out.println("Please select an option:");
+                System.out.println("1. Retry quiz");
+                System.out.println("2. Main menu");
+
+                int choice = Integer.parseInt(System.console().readLine());
+                switch (choice) {
+                    case 1:
+                        // Restart the quiz
+                        break;
+                    case 2:
+                        // Return to the main menu
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Returning to main menu.");
+                        break;
+                }
+
+                // Close the database resources
+                
+                // Release JDBC resources in reverse order
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                
+                    if (stmt != null) {
+                        stmt.close();
+                    }
+                
+                    if (con != null) {
+                        con.close();
+                    }
 
 
-        
-           } catch (SQLException se) {
-               se.printStackTrace();
-           }catch (Exception e) {
-            System.out.println(e);
-        }
-       }
-   }
+            
+                } catch (SQLException se) {
+                    se.printStackTrace();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+                                
+    
+
+}
 
