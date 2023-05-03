@@ -11,7 +11,7 @@ public class App {
     public static void main(String[] args) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/quiz", "root", "elizabeth@2001");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/QUIZ_A", "root", "1234");
             stmt = con.createStatement();
             isDone = false;
 
@@ -26,7 +26,7 @@ public class App {
 
     private static void showMainMenu() {
         Scanner input = new Scanner(System.in);
-         int choice;
+        int choice;
 
         while (!isDone) {
             System.out.println("\nWhat would you like to do?");
@@ -82,6 +82,7 @@ public class App {
             System.out.println(e);
         }
     }
+
     private static void signUp() {
         Scanner input = new Scanner(System.in);
         String username, password;
@@ -109,88 +110,115 @@ public class App {
 
                 System.out.println("\nUser created successfully!");
             }
-        } catch (Exception e) {
+        } 
+           // Select a quiz category
+           System.out.println("Please select a quiz category:");
+           stmt = con.createStatement();
+           rs = stmt.executeQuery("SELECT * FROM categories");
+           while (rs.next()) {
+               System.out.println(rs.getInt("cat_id") + ". " + rs.getString("cat_name"));
+           }
+           int categoryId = Integer.parseInt(System.console().readLine());
+
+           // Select a quiz
+           System.out.println("Please select a quiz:");
+           stmt = con.createStatement();
+           rs = stmt.executeQuery("SELECT * FROM quizzes WHERE cat_id=" + categoryId);
+           while (rs.next()) {
+               System.out.println(rs.getInt("quiz_id") + ". " + rs.getString("quiz_name"));
+           }
+           int quizId = Integer.parseInt(System.console().readLine());
+
+           // Answer questions
+           int score = 0;
+           stmt = con.createStatement();
+           rs = stmt.executeQuery("SELECT * FROM questions WHERE quiz_id=" + quizId);
+           while (rs.next()) {
+               // Display the current question and possible answers
+               int questionId = rs.getInt("table_id");
+               String questionText = rs.getString("question");
+               System.out.println(questionText);
+               stmt = con.createStatement();
+               ResultSet answers = stmt.executeQuery("SELECT * FROM answers WHERE table_id=" + questionId);
+               while (answers.next()) {
+                   int answerId = answers.getInt("ans_id");
+                   String answerText = answers.getString("answers");
+                   System.out.println(answerId + ". " + answerText);
+               }
+   
+               // Prompt the user to select an answer
+               int attempts = 0;
+               boolean answered = false;
+               while (!answered && attempts < 3) {
+                   System.out.print("Enter your answer: ");
+                   int answerChoice = Integer.parseInt(System.console().readLine());
+   
+                   // Check if the answer is correct
+                   stmt = con.createStatement();
+                   rs = stmt.executeQuery("SELECT * FROM answers WHERE ans_id=" + answerChoice + " AND correct=true");
+                   if (rs.next()) {
+                       System.out.println("Correct!");
+                       score++;
+                       answered = true;
+                   } else {
+                       System.out.println("Incorrect. Please try again.");
+                       attempts++;
+                   }
+               }
+           }
+   
+           // Display the final score and prompt the user to retry or return to the main menu
+           System.out.println("Quiz complete! Your score is: " + score);
+           System.out.println("Please select an option:");
+           System.out.println("1. Retry quiz");
+           System.out.println("2. Main menu");
+   
+           int choice = Integer.parseInt(System.console().readLine());
+           switch (choice) {
+               case 1:
+                   // Restart the quiz
+                   break;
+               case 2:
+                   // Return to the main menu
+                   break;
+               default:
+                   System.out.println("Invalid choice. Returning to main menu.");
+                   break;
+           }
+   
+           // Close the database resources
+           rs.close();
+           stmt.close();
+           con.close();
+       } catch (SQLException se) {
+           // Handle JDBC errors
+           se.printStackTrace();
+       } catch (Exception e) {
+           // Handle other errors
+           e.printStackTrace();
+       } finally {
+           // Release JDBC resources in reverse order
+           try {
+               if (rs != null) {
+                   rs.close();
+               }
+           } catch (SQLException se2) {
+           }
+           try {
+               if (stmt != null) {
+                   stmt.close();
+               }
+           } catch (SQLException se2) {
+           }
+           try {
+               if (con != null) {
+                   con.close();
+               }
+           } catch (SQLException se) {
+               se.printStackTrace();
+           }catch (Exception e) {
             System.out.println(e);
-}
-    }
-}
+        }
+       }
+   }
 
-
-
-// // agnal (category)?
-// public void selectCategory() {
-//     try {
-//         conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-//         stmt = conn.createStatement();
-        
-//         // Retrieve list of categories from the database
-//         ResultSet rs = stmt.executeQuery("SELECT * FROM categories");
-        
-//         // Display categories to the user
-//         System.out.println("Select a category:");
-//         while (rs.next()) {
-//             int categoryId = rs.getInt("category_id");
-//             String categoryName = rs.getString("category_name");
-//             System.out.println(categoryId + ". " + categoryName);
-//         }
-        
-//         // Prompt user to enter a category
-//         Scanner scanner = new Scanner(System.in);
-//         int selectedCategoryId = scanner.nextInt();
-        
-//         // Retrieve list of quizzes for the selected category
-//         rs = stmt.executeQuery("SELECT * FROM quizzes WHERE category_id = " + selectedCategoryId);
-        
-//         // Display quizzes to the user
-//         System.out.println("Select a quiz:");
-//         while (rs.next()) {
-//             int quizId = rs.getInt("quiz_id");
-//             String quizName = rs.getString("quiz_name");
-//             System.out.println(quizId + ". " + quizName);
-//         }
-        
-//         // Prompt user to enter a quiz
-//         int selectedQuizId = scanner.nextInt();
-        
-//         // Close database connection
-//         rs.close();
-//         stmt.close();
-//         conn.close();
-        
-//         // Call the function to display the first question of the selected quiz
-//         displayQuestion(selectedQuizId);
-//     } catch (SQLException e) {
-//         e.printStackTrace();
-//     }
-// }
-
-// private void displayQuestion(int quizId) {
-//     // TODO: Implement code to display the first question of the selected quiz
-// }
-// }
-
-//elizabeth
-// private static int selectQuiz(int categoryId) throws SQLException {
-//     // Display quizzes in selected category
-//     System.out.println("Select a quiz:");
-//     String query = "SELECT * FROM quizzes WHERE category_id = ?";
-//     PreparedStatement stmt = conn.prepareStatement(query);
-//     stmt.setInt(1, categoryId);
-//     ResultSet rs = stmt.executeQuery();
-//     int i = 1;
-//     while (rs.next()) {
-//         System.out.println(i + ". " + rs.getString("name"));
-//         i++;
-//     }
-//     // Prompt user for selection
-//     int selection = scanner.nextInt();
-//     if (selection < 1 || selection > i - 1) {
-//         return -1;
-//     }
-//     rs.absolute(selection);
-//     int quizId = rs.getInt("id");
-//     rs.close();
-//     stmt.close();
-
-//     return quizId;
-// }
