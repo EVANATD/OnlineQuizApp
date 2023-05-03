@@ -201,7 +201,7 @@ public class App {
            e.printStackTrace();
        }
     }
-        finally{
+          finally{
            // Release JDBC resources in reverse order
            try {
                if (rs != null) {
@@ -219,6 +219,9 @@ public class App {
                if (con != null) {
                    con.close();
                }
+
+
+        }
            } catch (SQLException se) {
                se.printStackTrace();
            }catch (Exception e) {
