@@ -1,337 +1,196 @@
+import java.util.*;
 import java.sql.*;
-import java.util.Scanner;
-
-import javax.imageio.plugins.tiff.FaxTIFFTagSet;
-
 public class App {
-    public static Connection con;
-    private static Statement stmt;
-    private static ResultSet rs;
-    private static PreparedStatement ps;
-    private static boolean isDone;
-
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws Exception {
+        Scanner input=new Scanner(System.in);
+        System.out.println("Press 1 for registration and press 2 for login");
+        int s=Integer.parseInt(input.nextLine());
+        String username=null;
+        try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/QUIZ_APP", "root", "elizabeth@2001");
-            stmt = con.createStatement();
-            isDone = false;
-
-            showMainMenu();
-
-            con.close();
-             stmt.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    private static void showMainMenu() {
-        Scanner input = new Scanner(System.in);
-        int choice;
-
-        while (!isDone) {
-            System.out.println("\nWhat would you like to do?");
-            System.out.println("1. Login");
-            System.out.println("2. Sign up");
-            System.out.println("3. Exit");
-
-            choice = input.nextInt();
-            input.nextLine();
-
-            switch (choice) {
-                case 1:
-                    login();
-                    break;
- case 2:
-                    signUp();
-                    break;
-                case 3:
-                    isDone = true;
-                    System.out.println("\nGoodbye!");
-                    break;
-                default:
-                    System.out.println("\nInvalid choice, please try again.");
-                    break;
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            if (s==1){
+                username=userregistration();
+            }else if(s==2){
+                username=login();
+            }else{
+                System.out.println("Enter a valid input");
             }
-        }
-    }
-
-    private static void login() {
-        Scanner input = new Scanner(System.in);
-        String username, password;
-
-        System.out.println("\nPlease enter your username:");
-        username = input.nextLine();
-
-        System.out.println("Please enter your password:");
-        password = input.nextLine();
-
-        try {
-            String query = "SELECT * FROM users WHERE username=? AND password=?";
-            ps = con.prepareStatement(query);
-            ps.setString(1, username);
-            ps.setString(2, password);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                System.out.println("\nWelcome, " + username + "!");
-                isDone = true;
-                selectCategory();
-            } else {
-                System.out.println("\nInvalid username or password, please try again.");
-                signUp();
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-    private static void signUp() {
-        Scanner input = new Scanner(System.in);
-        String username, password;
-
-        System.out.println("\nPlease enter your desired username:");
-        username = input.nextLine();
-
-        try {
-            String query = "SELECT * FROM users WHERE username=?";
-            ps = con.prepareStatement(query);
-            ps.setString(1, username);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                System.out.println("\nUsername already exists, please choose another.");
-            } else {
-                System.out.println("Please enter your desired password:");
-                password = input.nextLine();
-
-                String insertQuery = "INSERT INTO users(username, password) VALUES(?, ?)";
-
-                ps = con.prepareStatement(insertQuery);
-                ps.setString(1, username);
-                ps.setString(2, password);
-                ps.executeUpdate();
-
-                System.out.println("\nUser created successfully!");
-               // selectQuiz();
-                selectCategory();
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-}
-    }
-    static void mcq(int option){
-        
-
-    }
-    //public void
-     private static void selectCategory() {
-        Scanner input = new Scanner(System.in);
-int choice1;
-             try {
-        //         conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            //stmt = con.createStatement();
-                
-        /// Retrieve list of categories from the database
-             ResultSet rs1 = stmt.executeQuery("SELECT * FROM categories");
-                
-        //         // Display categories to the user
-          System.out.println("Select a category:");
-        //  while (rs.next()) {
-        //    int categoryId = rs.getInt("cat_id");
-        //    String categoryName = rs.getString("cat_name");
-
-        //      System.out.println(categoryId + ". " + categoryName);
-        //  }
-             //Scanner input = new Scanner(System.in);
-            System.out.println("Select a quiz type:\n1. Multiple Choice Questions\n2. True or False\n3. One Word");
-            int quizType = input.nextInt();
-            input.nextLine();
-            // System.out.println("Select a subject:\n1. History\n2. Geography\n3. Maths");
-            // int subject = input.nextInt();
-            // input.nextLine();
-            String sql = "SELECT * FROM History WHERE cat_id = ? ";
-            PreparedStatement stmt = con.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            stmt.setInt(1, quizType);
-            //stmt.setInt(2, );
-            ResultSet rs = stmt.executeQuery();
-            int count = 1;
-            while (rs.next()) {
-                System.out.println(count + ". " + rs.getString("Hisq"));
-                count++;
-            }
+            PreparedStatement prepnew= connection.prepareStatement("SELECT user_id FROM users WHERE username=?");
+            prepnew.setString(1,username);
+            ResultSet rest = prepnew.executeQuery();
+            rest.next();
+            int user_id=rest.getInt("user_id");
+            int cat_id=categories();
+            int score=questions(cat_id);
+            System.out.println(score);
             
-            // Prompting the user to answer the questions
-            rs.beforeFirst();
-            count = 1;
-            while (rs.next()) {
-                System.out.print(count + ". ");
-                switch (quizType) {
-                    case 1:
-                        int option=Integer.parseInt(input.nextLine());
-                        mcq(option);
-                        break;
-                    case 2:
-                        TorF(rs);
-                        break;
-                        case 3:
-                        OneWord(rs);
-                        break;
-                    default:
-                        System.out.println("Invalid quiz type.");
-                        break;
-                }
-         }
-
-//              choice1 = input.nextInt();
-//             input.nextLine();
-// switch (choice1) {
-//                 case 1:
-//                 mcq();
-//                 case 2:
-//                 TorF();
-//            case 3:
-//            OneWord();
-//            default:
-//                     System.out.println("\nInvalid choice, please try again.");
-//                     break;
-// }
-
-        // }
-                
-        //         // Prompt user to enter a category
-         //  Scanner scanner = new Scanner(System.in);
-        // int selectedCategoryId = scanner.nextInt();
-                
-        //         // Retrieve list of quizzes for the selected category
-          // rs = stmt.executeQuery("SELECT * FROM quizzes WHERE cat_id = " + selectedCategoryId);
-              
-    
-
-
-}catch (Exception e) {
-    System.out.println(e);
-}
-}
-private static void selectQuiz()  {
-    try{
-    ResultSet rs1 = stmt.executeQuery("SELECT * FROM quizzes ");
-//     // Display quizzes in selected category
-  System.out.println("Select a quiz:");
-  while (rs1.next()) {
-    int QuizId = rs1.getInt("quiz_id");
-    String QuizName = rs1.getString("quiz_name");
-      System.out.println(QuizId + ". " + QuizName);
-  }
-//     String query = "SELECT * FROM quizzes WHERE category_id = ?";
-//     PreparedStatement stmt = conn.prepareStatement(query);
-//     stmt.setInt(1, categoryId);
-//     ResultSet rs = stmt.executeQuery();
-//     int i = 1;
-//     while (rs.next()) {
-//         System.out.println(i + ". " + rs.getString("name"));
-//         i++;
-//     }
-//     // Prompt user for selection
-//     int selection = scanner.nextInt();
-//     if (selection < 1 || selection > i - 1) {
-//         return -1;
-//     }
-//     rs.absolute(selection);
-//     int quizId = rs.getInt("id");
-//     rs.close();
-//     stmt.close();
-
-//     return quizId;
-    }catch (Exception e) {
-        System.out.println(e);
+            scoretableupdate(score,user_id);
+            display(user_id);
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+        
+       
     }
-}
-private static void mcq(ResultSet rs) {
-    // System.out.println("\n Select from the below topics:");
-    // System.out.println("\n1.History");
-    // System.out.println("\n1.Geography");
-    // System.out.println("\n1.Maths");
-    // Scanner input = new Scanner(System.in);
-    // int choice1;
-    // choice1 = input.nextInt();
-    //         input.nextLine();
-    // switch (choice1) {
-    //     case 1:
-    //     hist();
-    //     case 2:
-    //     geo();
-    //     case 3:
-    //     math();
-    //     default:
-    //     System.out.println("\nInvalid choice, please try again.");
-    //     break;
+
+    static String userregistration()  {
+        String username=null;
+        // Scanner input=new Scanner(System.in);
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            Scanner input=new Scanner(System.in);
+            System.out.println("Enter your details to register:");
+            System.out.println("Enter Username: ");
+            username = input.nextLine();
+            String[] userDetails = new String[2];
+            userDetails[0] = username;
+            PreparedStatement prep4= connection.prepareStatement("SELECT * FROM users WHERE username=?");
+            prep4.setString(1,username);
+            ResultSet resultSet = prep4.executeQuery();
+            if(resultSet.next()) {
+                System.out.println("Username already exists!!!");
+                System.out.println("Enter another username:  ");
+                username = input.nextLine();
+                userDetails[0] = username;
+                System.out.println("Enter password:");
+                String password=input.nextLine();
+                userDetails[0]=username;
+                userDetails[1]=password;
+                PreparedStatement prep5= connection.prepareStatement("INSERT INTO users (username, password) VALUES (?,?)");
+                prep5.setString(1,username);
+                prep5.setString(2,password);
+                prep5.executeUpdate();
+               System.out.println("Success");
+            }else{
+                System.out.println("Enter password:");
+                String password=input.nextLine();
+                userDetails[0] =username; 
+                userDetails[1]=password;
+                PreparedStatement prep6= connection.prepareStatement("INSERT INTO users (username, password) VALUES (?,?)");
+                prep6.setString(1,username);
+                prep6.setString(2,password);
+                prep6.executeUpdate();
+                prep6.executeUpdate();
+            }  System.out.println("User " + userDetails[0] + " registered successfully");
+            //   System.out.println("Success");
+                // String username=userDetails[0];
+            } catch(Exception e){
+                System.out.println(e);
+            }
+            return username;
+        }
+
+        static String login() {
+            Scanner input = new Scanner(System.in);
+            String username, password;
+            System.out.println("\nPlease enter your username:");
+            username = input.nextLine();
+            System.out.println("Please enter your password:");
+            password = input.nextLine();
+            boolean isDone=false;
+            try{
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+                PreparedStatement prepstmt = connection.prepareStatement("SELECT * FROM users WHERE username=? AND password=?");
+                prepstmt.setString(1,username);
+                prepstmt.setString(2,password);
+                ResultSet rsnew=prepstmt.executeQuery();
+                rsnew=prepstmt.executeQuery();
+                if (rsnew.next()) {
+                    System.out.println("\nWelcome, " + username + "!");
+                    isDone = true;
+                } else {
+                    System.out.println("\nInvalid username or password, please try again.");
+                    userregistration();
+                }
+            }catch (Exception e) {
+                System.out.println(e);
+            }
+            return username;
+        }
+    static int categories(){
+        Scanner input=new Scanner(System.in);
+        System.out.println("Enter which category you would be interested to answer questions in : \n1.TRUE or FALSE \n2.MCQ \n3.One Word ");
+        int cat_id=Integer.parseInt(input.nextLine());
+        return cat_id;
+    }
+    static int questions(int cat_id){
+        Scanner input=new Scanner(System.in);
+        // String[][] qna=new String[5][2];
+        String answer=null;
+        int His_id=0;
+        int countofcorrectanswers=0;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            PreparedStatement prepstatement = connection.prepareStatement("SELECT His_id,hisq FROM History WHERE cat_id=?");
+            prepstatement.setInt(1,cat_id);
+            ResultSet rs=prepstatement.executeQuery();
+            int i=0;
+            while(rs.next() && i<5){
+                String question=rs.getString("hisq");
+                System.out.println(question);
+                answer=input.nextLine();
+                His_id=rs.getInt("His_id");
+                PreparedStatement prepstatement1 = connection.prepareStatement("SELECT answer FROM Answer WHERE His_id = ?");
+            prepstatement1.setInt(1,His_id);
+            ResultSet rs1=prepstatement1.executeQuery();
+            rs1.next();
+            String storedanswer=rs1.getString("answer");
+            
+                if(answer.equalsIgnoreCase(storedanswer)){
+                    System.out.println("The answer is correct");
+                    countofcorrectanswers++;
+                }else{
+                    System.out.println("The answer is incorrect");
+                }
+                
+        }}catch(Exception e){
+            System.out.println(e);
+        }
+        
+        return countofcorrectanswers;
+    }
+
+    static void scoretableupdate(int score,int user_id){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            PreparedStatement prep = connection.prepareStatement("INSERT INTO scores (user_id,score) VALUES (?, ?)");
+            prep.setInt(1,user_id);
+            prep.setInt(2,score);
+            prep.executeUpdate();
+        }catch(Exception e){
+            System.out.println(e);
+        }   
+    }
+
+    static void display(int user_id){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            PreparedStatement prep2 = connection.prepareStatement("SELECT username FROM users WHERE user_id = ?");
+            prep2.setInt(1,user_id);
+            ResultSet rs2=prep2.executeQuery();
+            rs2.next();
+            String username=rs2.getString("username");
+            PreparedStatement prep3 = connection.prepareStatement("SELECT score FROM scores WHERE user_id = ?");
+            prep3.setInt(1,user_id);
+            ResultSet rs3=prep3.executeQuery();
+            rs3.next();
+            int score=rs3.getInt("score");
+            System.out.println(username+" : "+score);
 
 
-    // System.out.println(rs.getString("option1"));
-    //     System.out.println(rs.getString("option2"));
-    //     System.out.println(rs.getString("option3"));
-    //     System.out.println(rs.getString("option4"));
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
     
-
-}
-private static void TorF(ResultSet rs) {
-    System.out.println("True or False?");
-    //   System.out.println("\n Select from the below topics:");
-    //   System.out.println("\n1.History");
-    //   System.out.println("\n1.Geography");
-    //   System.out.println("\n1.Maths");
-    //   Scanner input = new Scanner(System.in);
-    //   int choice1;
-    //   choice1 = input.nextInt();
-    //           input.nextLine();
-    //   switch (choice1) {
-    //       case 1:
-    //       hist();
-    //       case 2:
-    //       geo();
-    //       case 3:
-    //       math();
-    //       default:
-    //       System.out.println("\nInvalid choice, please try again.");
-    //       break;
-
-    //   }
-
-
-}
-private static void OneWord(ResultSet rs) {
-    System.out.println("Enter your answer:");
-    // System.out.println("\n Select from the below topics:");
-    // System.out.println("\n1.History");
-    // System.out.println("\n1.Geography");
-    // System.out.println("\n1.Maths");
-    // Scanner input = new Scanner(System.in);
-    // int choice1;
-    // choice1 = input.nextInt();
-    //         input.nextLine();
-    // switch (choice1) {
-    //     case 1:
-    //     hist();
-    //     case 2:
-    //     geo();
-    //     case 3:
-    //     math();
-    //     default:
-    //     System.out.println("\nInvalid choice, please try again.");
-    //     break;
-    // }
-
-}
-private static void hist(){
-
-
-}
-
-private static void geo(){
     
-}
-private static void math(){
-    
-}
 }
