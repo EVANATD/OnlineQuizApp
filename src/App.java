@@ -11,7 +11,7 @@ public class App {
     public static void main(String[] args) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/QUIZ_A", "root", "1234");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/QUIZ_A", "root", "username");
             stmt = con.createStatement();
             isDone = false;
 
@@ -187,16 +187,19 @@ public class App {
            }
    
            // Close the database resources
+           try{
            rs.close();
            stmt.close();
            con.close();
-       } catch (SQLException se) {
+         }catch (SQLException se) {
            // Handle JDBC errors
            se.printStackTrace();
        } catch (Exception e) {
            // Handle other errors
            e.printStackTrace();
-       } finally {
+       }
+    }
+        finally {
            // Release JDBC resources in reverse order
            try {
                if (rs != null) {
