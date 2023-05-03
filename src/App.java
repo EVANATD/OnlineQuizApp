@@ -110,7 +110,9 @@ public class App {
 
                 System.out.println("\nUser created successfully!");
             }
-        } 
+        } finally{
+
+        }
            // Select a quiz category
            System.out.println("Please select a quiz category:");
            stmt = con.createStatement();
@@ -199,7 +201,7 @@ public class App {
            e.printStackTrace();
        }
     }
-        finally {
+        finally{
            // Release JDBC resources in reverse order
            try {
                if (rs != null) {
