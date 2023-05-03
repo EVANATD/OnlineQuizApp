@@ -26,7 +26,7 @@ public class App {
 
     private static void showMainMenu() {
         Scanner input = new Scanner(System.in);
-        int choice;
+         int choice;
 
         while (!isDone) {
             System.out.println("\nWhat would you like to do?");
