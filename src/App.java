@@ -112,5 +112,83 @@ public class App {
         } catch (Exception e) {
             System.out.println(e);
 }
-}
-}
+
+
+
+// // agnal (category)?
+// public void selectCategory() {
+//     try {
+//         conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+//         stmt = conn.createStatement();
+        
+//         // Retrieve list of categories from the database
+//         ResultSet rs = stmt.executeQuery("SELECT * FROM categories");
+        
+//         // Display categories to the user
+//         System.out.println("Select a category:");
+//         while (rs.next()) {
+//             int categoryId = rs.getInt("category_id");
+//             String categoryName = rs.getString("category_name");
+//             System.out.println(categoryId + ". " + categoryName);
+//         }
+        
+//         // Prompt user to enter a category
+//         Scanner scanner = new Scanner(System.in);
+//         int selectedCategoryId = scanner.nextInt();
+        
+//         // Retrieve list of quizzes for the selected category
+//         rs = stmt.executeQuery("SELECT * FROM quizzes WHERE category_id = " + selectedCategoryId);
+        
+//         // Display quizzes to the user
+//         System.out.println("Select a quiz:");
+//         while (rs.next()) {
+//             int quizId = rs.getInt("quiz_id");
+//             String quizName = rs.getString("quiz_name");
+//             System.out.println(quizId + ". " + quizName);
+//         }
+        
+//         // Prompt user to enter a quiz
+//         int selectedQuizId = scanner.nextInt();
+        
+//         // Close database connection
+//         rs.close();
+//         stmt.close();
+//         conn.close();
+        
+//         // Call the function to display the first question of the selected quiz
+//         displayQuestion(selectedQuizId);
+//     } catch (SQLException e) {
+//         e.printStackTrace();
+//     }
+// }
+
+// private void displayQuestion(int quizId) {
+//     // TODO: Implement code to display the first question of the selected quiz
+// }
+// }
+
+//elizabeth
+// private static int selectQuiz(int categoryId) throws SQLException {
+//     // Display quizzes in selected category
+//     System.out.println("Select a quiz:");
+//     String query = "SELECT * FROM quizzes WHERE category_id = ?";
+//     PreparedStatement stmt = conn.prepareStatement(query);
+//     stmt.setInt(1, categoryId);
+//     ResultSet rs = stmt.executeQuery();
+//     int i = 1;
+//     while (rs.next()) {
+//         System.out.println(i + ". " + rs.getString("name"));
+//         i++;
+//     }
+//     // Prompt user for selection
+//     int selection = scanner.nextInt();
+//     if (selection < 1 || selection > i - 1) {
+//         return -1;
+//     }
+//     rs.absolute(selection);
+//     int quizId = rs.getInt("id");
+//     rs.close();
+//     stmt.close();
+
+//     return quizId;
+// }
