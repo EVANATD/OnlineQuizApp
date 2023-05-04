@@ -8,7 +8,7 @@ public class App {
         String username=null;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
             if (s==1){
                 username=userregistration();
             }else if(s==2){
@@ -41,7 +41,7 @@ public class App {
         // Scanner input=new Scanner(System.in);
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
             Scanner input=new Scanner(System.in);
             System.out.println("Enter your details to register:");
             System.out.println("Enter Username: ");
@@ -87,24 +87,25 @@ public class App {
         static String login() {
             Scanner input = new Scanner(System.in);
             String username, password;
-            System.out.println("\nPlease enter your username:");
+            System.out.println("\033[35mPlease enter your username:\033[0m");
+            
             username = input.nextLine();
-            System.out.println("Please enter your password:");
+            System.out.println("\033[36mPlease enter your password:\033[0m");
             password = input.nextLine();
             boolean isDone=false;
             try{
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+                Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
                 PreparedStatement prepstmt = connection.prepareStatement("SELECT * FROM users WHERE username=? AND password=?");
                 prepstmt.setString(1,username);
                 prepstmt.setString(2,password);
                 ResultSet rsnew=prepstmt.executeQuery();
                 rsnew=prepstmt.executeQuery();
                 if (rsnew.next()) {
-                    System.out.println("\nWelcome, " + username + "!");
+                    System.out.println("\033[32mWelcome,\033[0m " + username + "!");
                     isDone = true;
                 } else {
-                    System.out.println("\nInvalid username or password, please try again.");
+                    System.out.println("\033[31mInvalid username or password, please try again.\033[0m");
                     userregistration();
                 }
             }catch (Exception e) {
@@ -114,7 +115,7 @@ public class App {
         }
     static int categories(){
         Scanner input=new Scanner(System.in);
-        System.out.println("Enter which category you would be interested to answer questions in : \n1.TRUE or FALSE \n2.MCQ \n3.One Word ");
+        System.out.println("\033[34mEnter which category you would be interested to answer questions in : \n1.TRUE or FALSE \n2.MCQ \n3.One Word\033[0m ");
         int cat_id=Integer.parseInt(input.nextLine());
         return cat_id;
     }
@@ -126,7 +127,7 @@ public class App {
         int countofcorrectanswers=0;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
             PreparedStatement prepstatement = connection.prepareStatement("SELECT His_id,hisq FROM History WHERE cat_id=?");
             prepstatement.setInt(1,cat_id);
             ResultSet rs=prepstatement.executeQuery();
@@ -159,7 +160,7 @@ public class App {
     static void scoretableupdate(int score,int user_id){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
             PreparedStatement prep = connection.prepareStatement("INSERT INTO scores (user_id,score) VALUES (?, ?)");
             prep.setInt(1,user_id);
             prep.setInt(2,score);
@@ -172,7 +173,7 @@ public class App {
     static void display(int user_id){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
             PreparedStatement prep2 = connection.prepareStatement("SELECT username FROM users WHERE user_id = ?");
             prep2.setInt(1,user_id);
             ResultSet rs2=prep2.executeQuery();
