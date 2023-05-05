@@ -73,3 +73,16 @@ This MYSQL statement creates a table named "Answer" with three columns: "ans_id,
 After attemopting each quiz the score is added to the score table.
 
 scores table pic
+
+
+
+
+CREATE TABLE scores (
+score_id INT NOT NULL AUTO_INCREMENT,
+user_id INT NOT NULL,
+His_id INT NOT NULL,
+score INT NOT NULL,
+PRIMARY KEY (score_id),
+FOREIGN KEY (user_id) REFERENCES users(user_id),
+FOREIGN KEY (His_id) REFERENCES History(His_id)
+);
