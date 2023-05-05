@@ -32,11 +32,19 @@ public class App {
             int cat_id=categories();
             int score=questions(cat_id);
 
-            System.out.println("==================================");
-            System.out.println("|        Username      |  Score   |");
-            System.out.println("==================================");
-            System.out.printf("| %20s | %6d |\n", username, score);
-            System.out.println("==================================");
+                
+           
+    String reset = "\u001B[0m";
+    String y = "\u001B[33m";
+
+    
+    System.out.println(y + "==================================");
+    System.out.println("|        Username      |  Score   |");
+    System.out.println("==================================");
+    System.out.printf("| %20s | %6d |\n", username, score);
+    System.out.println("==================================" + reset);
+
+
 
    
             String filename=username+".txt";
@@ -218,20 +226,22 @@ public class App {
             int score=rs3.getInt("max_score");
             
           
-           System.out.println("===================================");
-           System.out.println("|         Highest Score           |");
-          
-           System.out.println("==================================");
-           System.out.println("|        Username      |   Score   |");
-           System.out.println("==================================");
-           System.out.printf("| %20s | %6d |\n", username, score);
-           System.out.println("==================================");
+           String reset = "\u001B[0m";
+           String y = "\u001B[33m";
+
+    
+    System.out.println(y + "===================================");
+    System.out.println("|         Highest Score           |");
+    System.out.println("==================================");
+    System.out.println("|        Username      |   Score   |");
+    System.out.println("==================================");
+    System.out.printf("| %20s | %6d |\n", username, score);
+    System.out.println("==================================" + reset);
+
 
         }catch(Exception e){
             System.out.println(e);
         }
     }
-
-    
-    
+  
 }
