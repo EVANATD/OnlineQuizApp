@@ -16,8 +16,7 @@ CREATE TABLE users (
 
 
 This code creates a table called "users" in a MySQL database. The table has three columns: "user_id", "username", and "password". The "user_id" column is set as the primary key, which means it uniquely identifies each row in the table. The "username" column is set as a unique and non-null field, which means that it cannot contain duplicate values and cannot be left empty. The "password" column is also non-null, which means that it must contain a value for each row in the table. Additionally, the "user_id" column is set to auto-increment, which means that it will automatically assign a new value for each new row added to the table, starting from 1 and incrementing by 1 each time.
-
-When the user registers the users name is added into this user table.If same name exist the user is asked to use another name for registering.
+When the user registers the user's name is added into this user table.If same name exist the user is asked to use another name for registering.
 
 
 
