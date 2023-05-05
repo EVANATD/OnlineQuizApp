@@ -52,7 +52,8 @@ The above code creates a table named "History" with three columns - His_id, Hisq
 When the user starts to attampt the question the user is provided whether the answer is correct or not.
 The answers are stored in the answer table .
 
-Answer table pic
+![Screenshot (12)](https://user-images.githubusercontent.com/118061144/236459200-cb1e36cd-511f-412a-adc6-97d6f4dd70e9.png)
+
 
 
 CREATE TABLE Answer (
@@ -66,7 +67,8 @@ CREATE TABLE Answer (
 This MYSQL statement creates a table named "Answer" with three columns: "ans_id,” "answer,” and "His_id.” The "ans_id" column is an integer primary key uniquely identifying each row in the table. The "answer" column is a string of up to 5000 characters and is not nullable, meaning it must have a value for each row. The "His_id" column is a foreign key that references the "His_id" column of the "History" table. This table is likely used to store the answer to a question in the quiz application, with each row representing an answer to a specific question in the "History" table. The "ans_id" serves as a unique identifier for each answer, and the "His_id" foreign key links each answer to a specific question in the "History" table.
 After attemopting each quiz the score is added to the score table.
 
-scores table pic
+
+![Screenshot (13)](https://user-images.githubusercontent.com/118061144/236459404-237efa59-dd00-46a7-89f6-8dae64ce3f73.png)
 
 
 
