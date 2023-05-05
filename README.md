@@ -18,9 +18,10 @@ This code creates a table called "users" in a MySQL database. The table has thre
 When the user registers the user's name is added into this user table.If same name exist the user is asked to use another name for registering.If the user selects login the user is asked for username and password. If the username don’t exist it will ask to register. If it already exists it will ask which category the user want to choose.
 
 
-category table pic
 
 
+
+![image](https://user-images.githubusercontent.com/118045058/236458117-b7ef0187-2c47-4379-b4a8-5ca6142dfc0c.png)
 
 
 
