@@ -159,7 +159,7 @@ public class App {
         int cat_id=Integer.parseInt(input.nextLine());
         return cat_id;
     }
-    static int questions(int cat_id){
+    static int questions(int cat_id){     //question function : allows the user to attempt the qusetion.
         Scanner input=new Scanner(System.in);
         
         String answer=null;
@@ -197,7 +197,7 @@ public class App {
         return countofcorrectanswers;
     }
 
-    static void scoretableupdate(int score,int user_id){
+    static void scoretableupdate(int score,int user_id){    //scoretableupdate function:  score updated to the table
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
@@ -210,7 +210,7 @@ public class App {
         }   
     }
 
-    static void display(int user_id){
+    static void display(int user_id){    //display function :display the highest score
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
