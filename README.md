@@ -36,6 +36,9 @@ CREATE TABLE categories (
 
 This code creates a table called "categories" in a MySQL database.The table has two columns: "cat_id" and "cat_name".The "cat_id column" is defined as an integer data type and is used as the primary key for the table. Primary keys are used to uniquely identify each record in the table.The "cat_name" column is defined as a varchar data type. It is set to be unique and not null, which means that it must have a value and cannot be duplicated in the table.
 
+After selecting the the category the user is provided with questions to attempt.
+
+
  History table pic 
 
 
@@ -48,6 +51,8 @@ CREATE TABLE History (
   FOREIGN KEY (cat_id)  REFERENCES categories(cat_id)
 );
 
-After selecting the the category the user is provided with questions to attempt.
+The above code creates a table named "History" with three columns - His_id, Hisq, and cat_id. His_id is set as the primary key for the table. Hisq is a VARCHAR data type column with a maximum length of 5000 characters and cannot be null. cat_id is an integer data type column that can have a foreign key constraint referencing the primary key column "cat_id" in the "categories" table. This means that each record in the "History" table must have a valid "cat_id" value that exists in the "categories" table.
+
+
 
 
