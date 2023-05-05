@@ -53,6 +53,6 @@ CREATE TABLE History (
 
 The above code creates a table named "History" with three columns - His_id, Hisq, and cat_id. His_id is set as the primary key for the table. Hisq is a VARCHAR data type column with a maximum length of 5000 characters and cannot be null. cat_id is an integer data type column that can have a foreign key constraint referencing the primary key column "cat_id" in the "categories" table. This means that each record in the "History" table must have a valid "cat_id" value that exists in the "categories" table.
 
-
+When the user starts to attampt the question the user is provided whether the answer is correct or not.
 
 
