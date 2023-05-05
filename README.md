@@ -52,7 +52,8 @@ The above code creates a table named "History" with three columns - His_id, Hisq
 When the user starts to attampt the question the user is provided whether the answer is correct or not.
 The answers are stored in the answer table .
 
-![Screenshot (12)](https://user-images.githubusercontent.com/118061144/236459200-cb1e36cd-511f-412a-adc6-97d6f4dd70e9.png)
+![image](https://user-images.githubusercontent.com/118061144/236459840-4df6aa3b-d3cf-4a96-85cb-5059c6358196.png)
+
 
 
 
