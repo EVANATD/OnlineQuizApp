@@ -91,3 +91,4 @@ FOREIGN KEY (His_id) REFERENCES History(His_id)
 
 This SQL statement creates a  table named "scores" with four columns: "score_id,” "user_id,” "His_id,” and "score,".where the "score_id" column is an auto-incremented integer that serves as the primary key for this table. The "user_id" column is an integer that represents the user who achieved the score. This column is set not to allow null values and is linked to the "user_id" column in the "users" table through a foreign key constraint. The "His_id" column is an integer that represents the history ID of the quiz taken by the user. This column is set not to allow null values and is linked to the "His_id" column in the "History" table through a foreign key constraint. The "score" column is an integer that stores the score achieved by the user for a particular quiz. This column is set not to allow null values. .
 
+After quiz the score is displayed in the score table.
