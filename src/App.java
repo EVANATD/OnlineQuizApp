@@ -77,9 +77,9 @@ public class App {
        
     }
 
-    static String userregistration()  {
+    static String userregistration()  {           //user register function : allowing user to register in the app
         String username=null;
-        // Scanner input=new Scanner(System.in);
+    
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
@@ -117,8 +117,7 @@ public class App {
                 prep6.executeUpdate();
                 prep6.executeUpdate();
             }  System.out.println("\033[32mUser \033[0m" + userDetails[0] + "\033[32mregistered successfully\033[0m");
-            //   System.out.println("Success");
-                // String username=userDetails[0];
+            
             } catch(Exception e){
                 System.out.println(e);
             }
@@ -162,7 +161,7 @@ public class App {
     }
     static int questions(int cat_id){
         Scanner input=new Scanner(System.in);
-        // String[][] qna=new String[5][2];
+        
         String answer=null;
         int His_id=0;
         int countofcorrectanswers=0;
