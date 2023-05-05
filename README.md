@@ -95,3 +95,6 @@ After quiz the score is displayed in the score table.
 
 
 After this the user is asked whether to attempt again or not.If yes the quiz starts again else the user exits.
+
+
+Finally, the users highest score is displayed.
