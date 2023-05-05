@@ -1,18 +1,13 @@
-## Getting Started
+# ONLINE QUIZ APP
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+### Description:
+This code is a quiz application written in Java that connects with a MySQL database to store and retrieve user data. The code allows users to register, log in, and take quizzes. The program presents a list of categories to choose from, and then displays a series of multiple-choice questions for the selected category. After answering all questions, the program displays the user's score, saves it to a file, and updates their score in the database.The code uses several Java libraries, including java.util, java.sql, and java.io, to handle user input, database interactions, and file I/O operations. The program is structured as a single class with several methods, each responsible for particular aspect of the application.
+               The main() method is responsible for handling user input and controlling the flow of the program. It prompts the user to choose registration or login, and then calls the appropriate method based on the user's input. If the user chooses to register, the userregistration() method is called, which allows the user to enter their username and password and stores the data in the database. If the user chooses to log in, the login() method is called, which allows the user to enter their username and password and checks if they match the data in the database.Once the user is logged in, the main() method presents a list of categories to choose from and prompts the user to select one. The categories() method is responsible for retrieving the list of categories from the database and displaying them to the user. Once the user selects a category, the questions() method is called, which retrieves a set of questions from the database for the selected category and presents them to the user one at a time. The user's answers are stored and the program calculates the user's score based on the number of correct answers.After the user completes the quiz, the main() method displays the user's score in a table format, saves it to a file, and updates the user's score in the database using the scoretableupdate() method. Finally, the program prompts the user to either attempt the quiz again or exit the program.
 
-## Folder Structure
 
-The workspace contains two folders by default, where:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
 
-## Dependency Management
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+
