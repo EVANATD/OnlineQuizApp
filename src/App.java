@@ -31,20 +31,19 @@ public class App {
             user_id=rest.getInt("user_id");
             int cat_id=categories();
             int score=questions(cat_id);
-           // System.out.println("Score:"+score);
 
-            
             System.out.println("==================================");
-System.out.println("|        Username      |  Score   |");
-System.out.println("==================================");
-System.out.printf("| %20s | %6d |\n", username, score);
-System.out.println("==================================");
+            System.out.println("|        Username      |  Score   |");
+            System.out.println("==================================");
+            System.out.printf("| %20s | %6d |\n", username, score);
+            System.out.println("==================================");
 
-   //
-   String filename=username+".txt";
-   File file=new File(filename);
-   FileWriter write=new FileWriter(file,true);
-   write.write("==================================\n");
+   
+            String filename=username+".txt";
+            File file=new File(filename);
+            FileWriter write=new FileWriter(file,true);
+            write.write("==================================\n");
+
             write.write("|        Username      |  Score   |\n");
             write.write("==================================\n");
             write.write(String.format("| %20s | %6d |\n", username, score));
@@ -53,12 +52,6 @@ System.out.println("==================================");
 
 
 
-
-
-   //
-
-            
-            
             scoretableupdate(score,user_id);
             
             System.out.println("Do you wish to attempt again \n1.Yes \n2.No");
@@ -225,8 +218,8 @@ System.out.println("==================================");
             int score=rs3.getInt("max_score");
             
           
-         System.out.println("===================================");
-         System.out.println("|         Highest Score           |");
+           System.out.println("===================================");
+           System.out.println("|         Highest Score           |");
           
            System.out.println("==================================");
            System.out.println("|        Username      |   Score   |");
