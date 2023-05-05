@@ -5,7 +5,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         Scanner input=new Scanner(System.in);
         System.out.println("-------------------------------------");
-        System.out.println("\033[34mPress 1 -------- Registration-------- \nPress 2 --------   login     --------\033[0m");
+        System.out.println("\033[34m 1 -------- Registration-------- \n 2 --------   Login     --------\033[0m");
         System.out.println("-------------------------------------");
         int s=Integer.parseInt(input.nextLine());
         String username=null;
@@ -13,7 +13,7 @@ public class App {
         
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
             if (s==1){
                 username=userregistration();
             }else if(s==2){
@@ -82,7 +82,7 @@ public class App {
         // Scanner input=new Scanner(System.in);
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
             Scanner input=new Scanner(System.in);
             System.out.println("\033[34mEnter your details to register:\033[0m");
             System.out.println("\033[35mEnter Username: \033[0m");
@@ -136,7 +136,7 @@ public class App {
             boolean isDone=false;
             try{
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
+                Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
                 PreparedStatement prepstmt = connection.prepareStatement("SELECT * FROM users WHERE username=? AND password=?");
                 prepstmt.setString(1,username);
                 prepstmt.setString(2,password);
@@ -168,7 +168,7 @@ public class App {
         int countofcorrectanswers=0;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
             PreparedStatement prepstatement = connection.prepareStatement("SELECT His_id,hisq FROM History WHERE cat_id=?");
             prepstatement.setInt(1,cat_id);
             ResultSet rs=prepstatement.executeQuery();
@@ -201,7 +201,7 @@ public class App {
     static void scoretableupdate(int score,int user_id){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
             PreparedStatement prep = connection.prepareStatement("INSERT INTO scores (user_id,score) VALUES (?, ?)");
             prep.setInt(1,user_id);
             prep.setInt(2,score);
@@ -214,7 +214,7 @@ public class App {
     static void display(int user_id){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
             PreparedStatement prep2 = connection.prepareStatement("SELECT username FROM users WHERE user_id = ?");
             prep2.setInt(1,user_id);
             ResultSet rs2=prep2.executeQuery();
