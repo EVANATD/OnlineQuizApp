@@ -27,7 +27,18 @@ public class App {
             user_id=rest.getInt("user_id");
             int cat_id=categories();
             int score=questions(cat_id);
-            System.out.println(score);
+           // System.out.println("Score:"+score);
+
+            
+            System.out.println("==================================");
+System.out.println("|        Username      |  Score   |");
+System.out.println("==================================");
+System.out.printf("| %20s | %6d |\n", username, score);
+System.out.println("==================================");
+
+
+
+            
             
             scoretableupdate(score,user_id);
             
@@ -162,7 +173,7 @@ public class App {
         }}catch(Exception e){
             System.out.println(e);
         }
-        System.out.println("Score:"+countofcorrectanswers);
+        
         return countofcorrectanswers;
     }
 
@@ -194,8 +205,15 @@ public class App {
             rs3.next();
             int score=rs3.getInt("max_score");
             
-            System.out.println("Highest score :"+username+" : "+score);
-
+          
+         System.out.println("===================================");
+         System.out.println("|         Highest Score           |");
+          
+           System.out.println("==================================");
+           System.out.println("|        Username      |   Score   |");
+           System.out.println("==================================");
+           System.out.printf("| %20s | %6d |\n", username, score);
+           System.out.println("==================================");
 
         }catch(Exception e){
             System.out.println(e);
