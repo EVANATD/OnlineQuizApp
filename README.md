@@ -35,7 +35,8 @@ This code creates a table called "categories" in a MySQL database.The table has 
 After selecting the the category the user is provided with questions to attempt.
 This questions are stored in the history table.
 
- History table pic 
+ ![image](https://user-images.githubusercontent.com/118045058/236458489-bb2d78f2-4319-4efe-888a-116fe9493e7b.png)
+
 
 
 
