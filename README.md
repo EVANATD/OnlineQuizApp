@@ -59,3 +59,9 @@ The answers are stored in the answer table .
 Answer table pic
 
 
+CREATE TABLE Answer (
+  ans_id INT PRIMARY KEY,
+  answer VARCHAR(5000) NOT NULL,
+  His_id INT,
+  FOREIGN KEY (His_id)  REFERENCES History(His_id)
+);
