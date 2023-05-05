@@ -124,7 +124,7 @@ public class App {
             return username;
         }
 
-        static String login() {
+        static String login() {                //login function :allows the user to login
             Scanner input = new Scanner(System.in);
             String username, password;
             System.out.println("\033[35mPlease enter your username:\033[0m");
@@ -153,7 +153,7 @@ public class App {
             }
             return username;
         }
-    static int categories(){
+    static int categories(){               // categories function : allows the user to select the category
         Scanner input=new Scanner(System.in);
         System.out.println("\033[34mEnter which category you would be interested to answer questions in : \n1.TRUE or FALSE \n2.MCQ \n3.One Word\033[0m ");
         int cat_id=Integer.parseInt(input.nextLine());
