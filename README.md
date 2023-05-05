@@ -65,3 +65,11 @@ CREATE TABLE Answer (
   His_id INT,
   FOREIGN KEY (His_id)  REFERENCES History(His_id)
 );
+
+
+This MYSQL statement creates a table named "Answer" with three columns: "ans_id,” "answer,” and "His_id.” The "ans_id" column is an integer primary key uniquely identifying each row in the table. The "answer" column is a string of up to 5000 characters and is not nullable, meaning it must have a value for each row. The "His_id" column is a foreign key that references the "His_id" column of the "History" table. This table is likely used to store the answer to a question in the quiz application, with each row representing an answer to a specific question in the "History" table. The "ans_id" serves as a unique identifier for each answer, and the "His_id" foreign key links each answer to a specific question in the "History" table.
+
+
+After attemopting each quiz the score is added to the score table.
+
+scores table pic
