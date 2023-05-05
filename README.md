@@ -16,12 +16,25 @@ CREATE TABLE users (
 
 
 This code creates a table called "users" in a MySQL database. The table has three columns: "user_id", "username", and "password". The "user_id" column is set as the primary key, which means it uniquely identifies each row in the table. The "username" column is set as a unique and non-null field, which means that it cannot contain duplicate values and cannot be left empty. The "password" column is also non-null, which means that it must contain a value for each row in the table. Additionally, the "user_id" column is set to auto-increment, which means that it will automatically assign a new value for each new row added to the table, starting from 1 and incrementing by 1 each time.
+
 When the user registers the user's name is added into this user table.If same name exist the user is asked to use another name for registering.
 
+If the user selects login the user is asked for username and password. If the username don’t exist it will ask to register. If it already exists it will ask which category the user want to choose.
+
+
+category table pic
 
 
 
 
+
+
+CREATE TABLE categories (
+  cat_id INT PRIMARY KEY,
+  cat_name VARCHAR(50) UNIQUE NOT NULL
+);
+
+This code creates a table called "categories" in a MySQL database.The table has two columns: "cat_id" and "cat_name".The "cat_id column" is defined as an integer data type and is used as the primary key for the table. Primary keys are used to uniquely identify each record in the table.The "cat_name" column is defined as a varchar data type. It is set to be unique and not null, which means that it must have a value and cannot be duplicated in the table.
 
 
 
