@@ -13,7 +13,7 @@ public class App {
         
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
             if (s==1){
                 username=userregistration();
             }else if(s==2){
@@ -82,9 +82,10 @@ public class App {
     
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
             Scanner input=new Scanner(System.in);
             System.out.println("\033[34mEnter your details to register:\033[0m");
+        
             System.out.println("\033[35mEnter Username: \033[0m");
             username = input.nextLine();
             String[] userDetails = new String[2];
@@ -135,7 +136,7 @@ public class App {
             boolean isDone=false;
             try{
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+                Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
                 PreparedStatement prepstmt = connection.prepareStatement("SELECT * FROM users WHERE username=? AND password=?");
                 prepstmt.setString(1,username);
                 prepstmt.setString(2,password);
@@ -167,7 +168,7 @@ public class App {
         int countofcorrectanswers=0;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
             PreparedStatement prepstatement = connection.prepareStatement("SELECT His_id,hisq FROM History WHERE cat_id=?");
             prepstatement.setInt(1,cat_id);
             ResultSet rs=prepstatement.executeQuery();
@@ -200,7 +201,7 @@ public class App {
     static void scoretableupdate(int score,int user_id){    //scoretableupdate function:  score updated to the table
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
             PreparedStatement prep = connection.prepareStatement("INSERT INTO scores (user_id,score) VALUES (?, ?)");
             prep.setInt(1,user_id);
             prep.setInt(2,score);
@@ -213,7 +214,7 @@ public class App {
     static void display(int user_id){    //display function :display the highest score
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","1234");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
             PreparedStatement prep2 = connection.prepareStatement("SELECT username FROM users WHERE user_id = ?");
             prep2.setInt(1,user_id);
             ResultSet rs2=prep2.executeQuery();
@@ -237,11 +238,47 @@ public class App {
     System.out.println("==================================");
     System.out.printf("| %20s | %6d |\n", username, score);
     System.out.println("==================================" + reset);
+    
+     printUserScores();
 
+  
 
         }catch(Exception e){
             System.out.println(e);
         }
     }
+
+  
+ static void printUserScores() {             // function to print the username, score count, and maximum score for each user
+        
+         try  {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/Quiz_App","root","elizabeth@2001");
+      
+                   PreparedStatement prepstatement = connection.prepareStatement( "SELECT u.username, COUNT(s.user_id) AS score_count, MAX(s.score) AS max_score "
+                   + "FROM users u "
+                   + "LEFT JOIN scores s ON u.user_id = s.user_id "
+                   + "GROUP BY u.user_id");
+                   ResultSet rs=prepstatement.executeQuery();
+                
+                   System.out.printf("%-20s %-20s %-20s\n", "Username", "Number of attempts", "Maximum score");
+                   System.out.println("-----------------------------------------------------------");
+                   
+
+            while (rs.next()) {
+                
+
+                String username = rs.getString("username");
+                int scoreCount = rs.getInt("score_count");
+                int maxScore = rs.getInt("max_score");
+                System.out.printf("%-20s %-20d %-20d\n", username, scoreCount, maxScore);
+
+            }
+        
+        }catch(Exception e){
+            System.out.println(e);
+        }
+}
+
   
 }
