@@ -95,3 +95,42 @@ After this the user is asked whether to attempt again or not.If yes the quiz sta
 
 
 Finally, the users highest score is displayed.
+
+
+Document
+Here we first run the code to ask login or register .
+![image](https://github.com/EVANATD/OnlineQuizApp/assets/118061144/b109fdf6-e5c5-4247-b24d-55044c0bd3cb)
+
+Select 1 and go to register. Add a new user to the file.
+![image](https://github.com/EVANATD/OnlineQuizApp/assets/118061144/d260e6e3-254b-4b3c-a6cd-9f7e1bcab7cb)
+
+If we select 2 and go to the login.To login an existing user and attempt a quiz.
+![image](https://github.com/EVANATD/OnlineQuizApp/assets/118061144/b2a24b94-9139-43b6-b783-53a18f9b7fee)
+
+
+If we log in the app asks the user which type of quiz wanted we select a type.
+![image](https://github.com/EVANATD/OnlineQuizApp/assets/118061144/21a3fb1e-1d68-4054-9101-86f3a27aad99)
+Select the True or False attempt for the quiz. And last, the score.
+![image](https://github.com/EVANATD/OnlineQuizApp/assets/118061144/2b9712f9-a77f-40f8-b643-7c6d6dbdee1c)
+
+After the quiz, ask attempt again or not. If we select yes, go to the examination, or we like no, the quiz is finished and shows the highest score.
+Similarly, in mcq and one word.
+![image](https://github.com/EVANATD/OnlineQuizApp/assets/118061144/7daad3ef-999f-44ba-89ac-550e4b2c9aa1)
+
+![image](https://github.com/EVANATD/OnlineQuizApp/assets/118061144/9b775aa0-4b24-4add-81fc-1189975f5d69)
+
+
+If we quit, the quiz shows each user's highest score, number of attempts, and maximum score.
+
+
+![image](https://github.com/EVANATD/OnlineQuizApp/assets/118061144/839b5cf1-7130-407b-8a04-0bc07b76fc40)
+
+
+
+
+
+
+
+
+
+
