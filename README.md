@@ -1,6 +1,6 @@
 # ONLINE QUIZ APP
 
-### Description:
+### Explanation about the application:
 This code is a quiz application written in Java that connects with a MySQL database to store and retrieve user data. The code allows users to register, log in, and take quizzes. The program presents a list of categories to choose from, and then displays a series of multiple-choice questions for the selected category. After answering all questions, the program displays the user's score, saves it to a file, and updates their score in the database.The code uses several Java libraries, including java.util, java.sql, and java.io, to handle user input, database interactions, and file I/O operations. The program is structured as a single class with several methods, each responsible for particular aspect of the application.
                The main() method is responsible for handling user input and controlling the flow of the program. It prompts the user to choose registration or login, and then calls the appropriate method based on the user's input. If the user chooses to register, the userregistration() method is called, which allows the user to enter their username and password and stores the data in the database. If the user chooses to log in, the login() method is called, which allows the user to enter their username and password and checks if they match the data in the database.Once the user is logged in, the main() method presents a list of categories to choose from and prompts the user to select one. The categories() method is responsible for retrieving the list of categories from the database and displaying them to the user. Once the user selects a category, the questions() method is called, which retrieves a set of questions from the database for the selected category and presents them to the user one at a time. The user's answers are stored and the program calculates the user's score based on the number of correct answers.After the user completes the quiz, the main() method displays the user's score in a table format, saves it to a file, and updates the user's score in the database using the scoretableupdate() method. Finally, the program prompts the user to either attempt the quiz again or exit the program.
 
@@ -97,7 +97,13 @@ After this the user is asked whether to attempt again or not.If yes the quiz sta
 Finally, the users highest score is displayed.
 
 
-Document
+
+
+### Software requirements fot this application:
+For this application we have used Visual Studio Code and Mysql .All the coding part is done in the visual studio code and coonected with sql.In SQL we have all the tables needed for this application.
+
+
+### How to run the application:
 Here we first run the code to ask login or register .
 ![image](https://github.com/EVANATD/OnlineQuizApp/assets/118061144/b109fdf6-e5c5-4247-b24d-55044c0bd3cb)
 
