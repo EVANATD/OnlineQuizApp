@@ -131,6 +131,37 @@ If we quit, the quiz shows each user's highest score, number of attempts, and ma
 
 ![image](https://github.com/EVANATD/OnlineQuizApp/assets/118061144/839b5cf1-7130-407b-8a04-0bc07b76fc40)
 
+###Explanation of file generated for a particular User
+
+Example of file generated for user Irin:
+
+![image](https://github.com/EVANATD/OnlineQuizApp/assets/118045058/c21c409a-d9e4-4be8-97ab-46d9f7c76f53)
+
+For each user each file is created.
+As the user attempts the quiz each time the mark  is added to the file.Hence, it shows the list of marks for all quizes the user attempted.
+
+###Data Analysis
+
+The give below table shows the analysis of the Quiz.
+![image](https://github.com/EVANATD/OnlineQuizApp/assets/118045058/4cae70cb-3628-4dc3-b9a1-05d750911935)
+
+The table contains all the users name,how many times he attempted the quiz and the maximum score he secured.From this table we conclude that as the number of attempts increases the mark scored also increases.
+
+
+Given below are the two charts that shows the data analysis for the above table.
+
+####Bar chart
+
+![image](https://github.com/EVANATD/OnlineQuizApp/assets/118045058/352a036b-6a05-4f8b-bbb7-0e6b7b704487)
+
+####Pie chart
+
+![image](https://github.com/EVANATD/OnlineQuizApp/assets/118045058/24a13d54-d086-4445-a00b-9c9558a80245)
+
+
+
+
+
 
 
 
